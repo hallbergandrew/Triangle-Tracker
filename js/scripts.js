@@ -1,46 +1,66 @@
-var Triangle = {
-  isTriangleValid: function(){
-    if(this.side + this.base > this.hypo && this.base + this.hypo > this.side && this.side + this.hypo > this.base) {
-      return true;
+var Package = {
+  shippingCost: function() {
+    if(this.destinationZipCode === 001 
+      || (this.destinationZipCode >= 96700 && this.destinationZipCode <= 96899) 
+      || (this.destinationZipCode >= 99500 && this.destinationZipCode <= 99999)) {
+    return 20
     } else {
-      return false;
+    return 10
     }
   },
 
-  triangleType: function() {
-    if(this.side === this.hypo && this.hypo === this.base){
-      return "Equilateral";
-    } else if(this.side === this.hypo || this.hypo == this.base || this.base === this.side) {
-      return "Isosceles";
+  weightCost: function() {
+    if(this.weight < 1){
+      return this.shippingCost();
+  } else if(this.weight >= 1 && this.weight <= 50){
+      return parseInt(this.shippingCost() + (this.weight * 2.2));
+  } else {
+    return parseInt(this.shippingCost() + (this.weight * 8.8 + 200));
+  } 
+  },
+
+  expressCost: function() {
+    if(this.express){
+      return parseInt(this.weightCost() + 150);
     } else {
-      return "Scalene"
+      return parseInt(this.weightCost());
+    }
+  },
+
+  insuranceCost: function() {
+    if(this.insurance) {
+      return parseInt(this.expressCost() + 50)
+    } else {
+      return parseInt(this.expressCost())
     }
   }
-}
+};
 
 $(document).ready(function () {
-  $("form#new-triangle").submit(function(event) {
+  $("form#shipping").submit(function(event) {
     event.preventDefault();
 
-    var inputtedBase = parseInt($("input#new-base").val());
-    var inputtedSide = parseInt($("input#new-side").val());
-    var inputtedHypo = parseInt($("input#new-hypo").val());
+    var newPackage = Object.create(Package);
+    newPackage.originZIP = parseInt($("input#start").val()); // creates property "originZIP" of object newPackage;
+    newPackage.destinationZIP = parseInt($("input#final").val());
+    newPackage.weight = parseInt($("input#weight").val());
+    newPackage.express = $("input#shipping").val;
+    newPackage.insurance = $('input#insurance').val();;
 
-    var newTriangle = Object.create(Triangle);
-    newTriangle.base = inputtedBase;
-    newTriangle.side = inputtedSide;
-    newTriangle.hypo = inputtedHypo;
-    var triangleOutput = newTriangle.base  + "," + newTriangle.side + "," + newTriangle.hypo;
-
-    if(newTriangle.isTriangleValid() === false) {
-      alert("Invalid triangle.")
-    } else if(newTriangle.triangleType() === "Equilateral") {
-      $("ul#equilateral").append("<li><span class='triangle'>" + triangleOutput + "</span></li>");
-    } else if(newTriangle.triangleType() === "Isosceles") {
-      $("ul#isosceles").append("<li><span class='triangle'>" + triangleOutput + "</span></li>");
-    } else { $("ul#scalene").append("<li><span class='triangle'>" + triangleOutput + "</span></li>");
-    } 
-
+    $("span#price").append(newPackage.insuranceCost());
       this.reset();
-  })
+    })
 });
+
+//     if(newTriangle.isTriangleValid() === false) {
+//       alert("Invalid triangle.")
+//     } else if(newTriangle.triangleType() === "Equilateral") {
+//       $("ul#equilateral").append("<li><span class='triangle'>" + triangleOutput + "</span></li>");
+//     } else if(newTriangle.triangleType() === "Isosceles") {
+//       $("ul#isosceles").append("<li><span class='triangle'>" + triangleOutput + "</span></li>");
+//     } else { $("ul#scalene").append("<li><span class='triangle'>" + triangleOutput + "</span></li>");
+//     } 
+
+//       this.reset();
+//   })
+// });

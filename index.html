@@ -5,51 +5,45 @@
     <link href="css/styles.css" rel="stylesheet" type="text/css">
     <script src="js/jquery-1.11.0.js"></script>
     <script src="js/scripts.js"></script>
-    <title>Triangle Tracker</title>
+    <title>Shipping Chart</title>
   </head>
   <body>
     <div class="container">
-      <h1>Triangle Tracker</h1>
+      <h1>Shipping Chart</h1>
         <div class="row">
           <div class="col-md-3">
-              <p class='lead'> Enter three sides of a triangle and determine what kind of triangle it is.</p>
-              <h3>New Triangle:</h3>
+              <p class='lead'> Enter data about your package and we will give you a price quote.</p>
+              <h3>Package Details:</h3>
             
-            <form id="new-triangle">
+            <form id="shipping">
               <div class="form-group">
-                <label for="new-base">Base</label>
-                <input type="text" class="form-control" id="new-base">
+                <label for="new-base">Starting ZIPcode</label>
+                <input type="text" class="form-control" id="start">
               </div>
             
               <div class="form-group">
-                <label for="new-side">Side</label>
-                <input type="text" class="form-control" id="new-side">
+                <label for="new-side">Destination ZIPcode</label>
+                <input type="text" class="form-control" id="final">
               </div>
             
               <div class="form-group">
-                <label for="new-hypo">Hypotenuse</label>
-                <input type="text" class="form-control" id="new-hypo">
+                <label for="new-hypo">Weight of Package</label>
+                <input type="text" class="form-control" id="weight">
               </div>
 
-              <button type="submit" class="btn">Add</button>
+              <input type="radio" name="shipping" value="false" id="shipping">Standard shipping (5+ days)
+              <br>
+              <input type="radio" name="shipping" value="true" id="shipping">Express shipping
+              <br><br>
+
+              <input type="checkbox" name="insurance" value="true" id="insurance">Click for insurance ($50)<br><br>
+
+              <button type="submit" class="btn">Submit</button>
             </form>
-            
-              
-                  <div class="col-md-3">Equilateral
-                  <ul id="equilateral">
-                  </ul>
-                  </div>
+            <br>
 
-                  <div class="col-md-3">Isosceles
-                    <ul id="isosceles">
-                    </ul>
-                  </div>
+            <h3 class="quote">Your Price: $<span id="price"></span></h3>
 
-                  <div class="col-md-3">Scalene
-                  <ul id="scalene">
-                  </ul>
-              
-                  </div>
           </div>
         </div>
       </div>
