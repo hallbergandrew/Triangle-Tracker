@@ -1,0 +1,21 @@
+.container {
+  background-color: #6600FF;
+  color: #FFFF66;
+}
+
+li {
+  list-style: none;
+}
+
+#show-contact {
+  display: none;
+}
+
+.contact {
+  cursor: pointer;
+  color: #0088cc;
+}
+
+.contact:hover {
+  text-decoration: underline;
+}
